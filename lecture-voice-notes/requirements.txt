@@ -1,0 +1,41 @@
+# Lecture Voice Notes - Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core web framework
+streamlit>=1.28.0
+
+# OpenAI API and Whisper
+openai>=1.0.0
+openai-whisper>=20231117
+
+# Environment and configuration
+python-dotenv>=1.0.0
+
+# Natural Language Processing
+nltk>=3.8.1
+
+# Database
+sqlalchemy>=2.0.0
+
+# Audio processing
+pydub>=0.25.1
+ffmpeg-python>=0.2.0
+
+# Additional utilities
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Optional: For better audio format support
+librosa>=0.10.0
+
+# Optional: For advanced text processing
+scipy>=1.10.0
+
+# Optional: Jupyter notebook support (if needed)
+jupyter>=1.0.0
+ipykernel>=6.25.0
+
+# Development dependencies (optional)
+pytest>=7.4.0
+black>=23.0.0
+flake8>=6.0.0
