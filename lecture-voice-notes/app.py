@@ -16,6 +16,7 @@ from models.summarizer import TextSummarizer, get_summary_types
 from models.quiz_generator import QuizGenerator, get_quiz_types
 from models.flashcard_generator import FlashcardGenerator, get_flashcard_types
 from utils.text_processing import TextProcessor, preprocess_audio_transcript, get_text_insights
+from utils.config import get_api_key, is_api_key_configured, get_config_value
 
 
 # Page configuration
@@ -637,12 +638,13 @@ class LectureVoiceNotesApp:
         # API Configuration
         st.subheader("🔑 API Configuration")
         
-        current_key = os.getenv('OPENAI_API_KEY', '')
-        if current_key:
+        current_key = get_api_key()
+        if is_api_key_configured():
             st.success("✅ OpenAI API key is configured")
         else:
             st.error("❌ OpenAI API key not found")
-            st.info("Please add your OpenAI API key to the .env file")
+            st.info("For local development: Add your OpenAI API key to .env file or .streamlit/secrets.toml")
+            st.info("For Streamlit Cloud: Add OPENAI_API_KEY to your app's secrets")
         
         # Model Settings
         st.subheader("🤖 Model Settings")
@@ -689,10 +691,12 @@ class LectureVoiceNotesApp:
 def main():
     """Main function to run the Streamlit app."""
     
-    # Check for environment setup
-    if not os.path.exists('.env'):
-        st.error("❌ .env file not found. Please create it with your OpenAI API key.")
-        st.info("Create a .env file in the project root with: OPENAI_API_KEY=your_api_key_here")
+    # Check for API key configuration
+    if not is_api_key_configured():
+        st.error("❌ OpenAI API key not configured properly.")
+        st.info("**For local development:** Create a .env file or .streamlit/secrets.toml with your OpenAI API key")
+        st.info("**For Streamlit Cloud:** Add OPENAI_API_KEY to your app's secrets in the dashboard")
+        st.code("# .env file:\nOPENAI_API_KEY=your_api_key_here\n\n# OR .streamlit/secrets.toml:\nOPENAI_API_KEY = \"your_api_key_here\"")
         return
     
     # Initialize and run the app

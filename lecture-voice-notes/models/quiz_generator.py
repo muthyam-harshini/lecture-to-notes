@@ -21,7 +21,7 @@ class QuizGenerator:
     
     def _setup_openai(self):
         """Set up OpenAI API client."""
-        api_key = os.getenv('OPENAI_API_KEY')
+        api_key = get_api_key()
         if not api_key:
             st.error("OpenAI API key not found. Please check your .env file.")
             raise ValueError("OpenAI API key is required")
